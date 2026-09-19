@@ -58,3 +58,27 @@ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 document.querySelectorAll('#year').forEach(el=>el.textContent=new Date().getFullYear());
+
+
+// Scroll-linked hero reveal: lift the title away to uncover the photograph.
+const hero=document.querySelector('.intro');
+if(hero){
+  let heroTicking=false;
+  const updateHeroReveal=()=>{
+    const distance=Math.max(window.innerHeight*.42,1);
+    const progress=Math.min(Math.max(window.scrollY/distance,0),1);
+    const eased=1-Math.pow(1-progress,3);
+    hero.style.setProperty('--title-shift-first',`${-eased*118}px`);
+    hero.style.setProperty('--title-shift-second',`${-eased*154}px`);
+    hero.style.setProperty('--title-opacity',String(Math.max(0,1-progress*1.32)));
+    hero.style.setProperty('--hero-meta-opacity',String(Math.max(0,1-progress*1.8)));
+    hero.style.setProperty('--scroll-cue-opacity',String(Math.max(0,.78-progress*2.4)));
+    heroTicking=false;
+  };
+  const requestHeroReveal=()=>{
+    if(!heroTicking){heroTicking=true;requestAnimationFrame(updateHeroReveal)}
+  };
+  updateHeroReveal();
+  addEventListener('scroll',requestHeroReveal,{passive:true});
+  addEventListener('resize',requestHeroReveal,{passive:true});
+}
