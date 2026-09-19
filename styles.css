@@ -127,3 +127,71 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
   100%{background-position:16% 106%,74% 99%,0 0,0 0;opacity:.91}
 }
 @media(prefers-reduced-motion:reduce){.hero-picture-holder:after{animation:none}}
+
+
+/* Wandering ambient light and a separate treatment for the water reflection */
+.hero-picture-holder:after{
+  z-index:1;
+  opacity:1;
+  background:
+    radial-gradient(ellipse 38% 34% at 18% 42%,rgba(225,241,255,.13),transparent 72%),
+    radial-gradient(ellipse 31% 28% at 76% 26%,rgba(255,245,218,.09),transparent 74%),
+    radial-gradient(ellipse 28% 22% at 58% 72%,rgba(198,229,255,.08),transparent 76%),
+    linear-gradient(90deg,rgba(5,12,23,.38),rgba(5,12,23,.06) 40%,rgba(5,12,23,.15)),
+    linear-gradient(0deg,rgba(4,10,20,.39),transparent 48%,rgba(4,10,20,.16));
+  background-size:145% 145%,138% 138%,150% 150%,100% 100%,100% 100%;
+  background-repeat:no-repeat;
+  background-position:-20% 12%,105% -12%,46% 112%,0 0,0 0;
+  animation:hero-wandering-light 14s cubic-bezier(.45,0,.55,1) infinite;
+  will-change:background-position,opacity
+}
+@keyframes hero-wandering-light{
+  0%{background-position:-20% 12%,105% -12%,46% 112%,0 0,0 0;opacity:.86}
+  19%{background-position:-4% 25%,88% 5%,61% 94%,0 0,0 0;opacity:.96}
+  43%{background-position:14% 8%,70% 19%,39% 82%,0 0,0 0;opacity:.9}
+  68%{background-position:2% -3%,93% 28%,22% 101%,0 0,0 0;opacity:1}
+  84%{background-position:-13% 18%,78% 2%,55% 89%,0 0,0 0;opacity:.92}
+  100%{background-position:-20% 12%,105% -12%,46% 112%,0 0,0 0;opacity:.86}
+}
+.hero-picture-holder span{
+  display:block;
+  position:absolute;
+  inset:auto 0 0;
+  width:100%;
+  height:45%;
+  z-index:2;
+  pointer-events:none;
+  color:transparent;
+  background:
+    repeating-linear-gradient(177deg,transparent 0 9px,rgba(205,233,255,.035) 10px,rgba(255,255,255,.09) 11px,transparent 13px,transparent 22px),
+    repeating-linear-gradient(3deg,transparent 0 15px,rgba(166,215,248,.045) 17px,transparent 19px,transparent 31px);
+  background-size:124% 118%,138% 126%;
+  background-position:-8% 0,106% 0;
+  mix-blend-mode:screen;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.28) 14%,#000 42%,rgba(0,0,0,.82) 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.28) 14%,#000 42%,rgba(0,0,0,.82) 100%);
+  filter:blur(.35px);
+  animation:water-reflection-drift 9s ease-in-out infinite alternate
+}
+.hero-picture-holder span:before{
+  content:"";
+  position:absolute;
+  left:-8%;
+  right:-8%;
+  top:7%;
+  height:18%;
+  background:radial-gradient(ellipse at center,rgba(214,238,255,.13),transparent 69%);
+  filter:blur(12px);
+  animation:reflection-horizon 11s ease-in-out infinite alternate
+}
+@keyframes water-reflection-drift{
+  from{background-position:-8% 0,106% 0;opacity:.58;transform:translateY(0)}
+  to{background-position:10% 8px,84% -6px;opacity:.82;transform:translateY(2px)}
+}
+@keyframes reflection-horizon{
+  from{transform:translateX(-7%) scaleX(.92);opacity:.45}
+  to{transform:translateX(7%) scaleX(1.06);opacity:.75}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-picture-holder:after,.hero-picture-holder span,.hero-picture-holder span:before{animation:none}
+}
