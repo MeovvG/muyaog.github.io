@@ -1,8 +1,8 @@
-function flipMarkup(id,label,compact=false,imageSrc=''){
+function flipMarkup(id,label,compact=false,imageSrc='',alt=''){
   const copy=compact?'A short description of the place, moment, and feeling behind this photograph.':'A short description of where this was taken, what caught your attention, and why the frame matters.';
   const number=String(id).replace(/\D/g,'').slice(-2).padStart(2,'0');
   const front=imageSrc
-    ? `<div class="flip-face flip-front has-photo"><img src="${imageSrc}" alt="${label}" loading="lazy"><span class="photo-number">${number}</span></div>`
+    ? `<div class="flip-face flip-front has-photo"><img src="${imageSrc}" alt="${alt || label}" loading="lazy"><span class="photo-number">${number}</span></div>`
     : `<div class="flip-face flip-front"><span class="placeholder-mark"><span>Image placeholder</span><span>${number}</span></span></div>`;
   return `<div class="flip-inner">${front}<div class="flip-face flip-back"><strong>${label}</strong><p>${copy}</p><span class="edit-hint">Click anywhere to return</span></div></div>`;
 }
@@ -15,14 +15,25 @@ function activateFlips(root=document){
 
 const featureGrid=document.querySelector('#feature-grid');
 if(featureGrid){
-  for(let i=1;i<=8;i++){
+  const selectedPhotos=[
+    {file:'selected-02.jpg',shape:'portrait',title:'A moment of warmth',alt:'A smiling Buddhist nun in deep red robes and hat'},
+    {file:'selected-03.jpg',shape:'portrait',title:'Faith, framed',alt:'An ornate Tibetan temple seen through a sculptural opening'},
+    {file:'selected-01.jpg',shape:'landscape',title:'At altitude',alt:'A snow-covered mountain beneath dramatic clouds'},
+    {file:'selected-06.jpg',shape:'portrait',title:'Keeping tradition',alt:'An artist painting a vivid Buddhist figure on an ochre wall'},
+    {file:'selected-05.jpg',shape:'landscape',title:'A quiet witness',alt:'A black bird beside a puddle reflecting the sky'},
+    {file:'selected-07.jpg',shape:'portrait',title:'Island geometry',alt:'Sunlit modern architecture framed by tropical greenery'},
+    {file:'selected-04.jpg',shape:'landscape',title:'Evening by the water',alt:'People beside the water under a bridge in warm evening light'},
+    {file:'selected-08.jpg',shape:'landscape',title:'The long view',alt:'Hikers crossing snow beneath a bright mountain range'}
+  ];
+  selectedPhotos.forEach((photo,index)=>{
+    const i=index+1;
     const card=document.createElement('article');
-    card.className='flip-card reveal';
+    card.className=`flip-card ${photo.shape} reveal`;
     card.style.transitionDelay=`${(i%4)*80}ms`;
     card.setAttribute('aria-label',`Selected photograph ${i}; click to flip`);
-    card.innerHTML=flipMarkup(`selected-${i}`,`Frame ${String(i).padStart(2,'0')}`,false,`./assets/photos/${i}.jpg`);
+    card.innerHTML=flipMarkup(`selected-${i}`,photo.title,false,`./assets/selected/${photo.file}`,photo.alt);
     featureGrid.appendChild(card);
-  }
+  });
   activateFlips(featureGrid);
 }
 
