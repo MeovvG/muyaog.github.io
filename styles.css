@@ -317,3 +317,8 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 /* Slimmer top navigation strip */
 .site-header{padding:15px 3vw}
 @media(max-width:900px){.site-header{padding:14px 20px}}
+
+
+/* Ultra-slim top navigation strip */
+.site-header{padding:8px 3vw}
+@media(max-width:900px){.site-header{padding:8px 20px}}
