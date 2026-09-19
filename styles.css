@@ -322,3 +322,15 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 /* Ultra-slim top navigation strip */
 .site-header{padding:8px 3vw}
 @media(max-width:900px){.site-header{padding:8px 20px}}
+
+
+/* Exact compact header height */
+.site-header{
+  height:28px;
+  min-height:28px;
+  padding:0 3vw
+}
+.site-header .wordmark,.site-header nav a{line-height:1}
+@media(max-width:900px){
+  .site-header{height:28px;min-height:28px;padding:0 20px}
+}
