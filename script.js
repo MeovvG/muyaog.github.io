@@ -1,6 +1,10 @@
-function flipMarkup(id,label,compact=false){
+function flipMarkup(id,label,compact=false,imageSrc=''){
   const copy=compact?'A short description of the place, moment, and feeling behind this photograph.':'A short description of where this was taken, what caught your attention, and why the frame matters.';
-  return `<div class="flip-inner"><div class="flip-face flip-front"><span class="placeholder-mark"><span>Image placeholder</span><span>${String(id).replace(/\D/g,'').slice(-2).padStart(2,'0')}</span></span></div><div class="flip-face flip-back"><strong>${label}</strong><p>${copy}</p><span class="edit-hint">Click anywhere to return</span></div></div>`;
+  const number=String(id).replace(/\D/g,'').slice(-2).padStart(2,'0');
+  const front=imageSrc
+    ? `<div class="flip-face flip-front has-photo"><img src="${imageSrc}" alt="${label}" loading="lazy"><span class="photo-number">${number}</span></div>`
+    : `<div class="flip-face flip-front"><span class="placeholder-mark"><span>Image placeholder</span><span>${number}</span></span></div>`;
+  return `<div class="flip-inner">${front}<div class="flip-face flip-back"><strong>${label}</strong><p>${copy}</p><span class="edit-hint">Click anywhere to return</span></div></div>`;
 }
 
 function activateFlips(root=document){
@@ -16,7 +20,7 @@ if(featureGrid){
     card.className='flip-card reveal';
     card.style.transitionDelay=`${(i%4)*80}ms`;
     card.setAttribute('aria-label',`Selected photograph ${i}; click to flip`);
-    card.innerHTML=flipMarkup(`selected-${i}`,`Frame ${String(i).padStart(2,'0')}`);
+    card.innerHTML=flipMarkup(`selected-${i}`,`Frame ${String(i).padStart(2,'0')}`,false,`./assets/photos/${i}.jpg`);
     featureGrid.appendChild(card);
   }
   activateFlips(featureGrid);
