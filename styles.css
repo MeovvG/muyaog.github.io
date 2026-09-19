@@ -312,3 +312,8 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   .intro h1 .title-second:before{opacity:.55}
 }
+
+
+/* Slimmer top navigation strip */
+.site-header{padding:15px 3vw}
+@media(max-width:900px){.site-header{padding:14px 20px}}
