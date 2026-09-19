@@ -282,3 +282,33 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
   .intro h1 .title-first,.intro h1 .title-second{translate:none}
   .scroll-cue i{animation:none}
 }
+
+
+/* Minimal contrast treatment for the title over the city */
+.intro h1 .title-second{
+  position:relative;
+  isolation:isolate;
+  letter-spacing:.002em;
+  text-shadow:0 2px 12px rgba(0,0,0,.32),0 1px 2px rgba(0,0,0,.3)
+}
+.intro h1 .title-second:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  top:8%;
+  width:112%;
+  height:92%;
+  translate:-50% 0;
+  background:radial-gradient(ellipse at center,rgba(3,10,20,.3) 0%,rgba(3,10,20,.17) 43%,transparent 73%);
+  filter:blur(11px);
+  opacity:var(--title-effect-opacity,.72);
+  pointer-events:none;
+  will-change:opacity
+}
+@media(max-width:900px){
+  .intro h1 .title-second:before{width:118%;filter:blur(9px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro h1 .title-second:before{opacity:.55}
+}
