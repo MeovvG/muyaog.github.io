@@ -52,7 +52,9 @@ if(gallery){
   activateFlips(gallery);
 }
 
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target)}}),{threshold:.12});
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  entry.target.classList.toggle('in-view',entry.isIntersecting);
+}),{threshold:.12,rootMargin:'0px 0px -5% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 document.querySelectorAll('#year').forEach(el=>el.textContent=new Date().getFullYear());
