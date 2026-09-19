@@ -195,3 +195,34 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   .hero-picture-holder:after,.hero-picture-holder span,.hero-picture-holder span:before{animation:none}
 }
+
+
+/* Cinematic title lighting: no shimmer, no water animation */
+.hero-picture-holder span{
+  display:none;
+  animation:none
+}
+.hero-picture-holder:after{
+  z-index:1;
+  opacity:1;
+  background:
+    radial-gradient(ellipse 58% 48% at 32% 48%,rgba(196,221,244,.12),transparent 74%),
+    linear-gradient(90deg,rgba(3,9,18,.52) 0%,rgba(3,9,18,.16) 34%,rgba(3,9,18,.12) 62%,rgba(3,9,18,.4) 100%),
+    linear-gradient(0deg,rgba(2,7,15,.5) 0%,rgba(2,7,15,.08) 43%,rgba(2,7,15,.24) 100%);
+  background-size:132% 132%,100% 100%,100% 100%;
+  background-repeat:no-repeat;
+  background-position:-20% 8%,0 0,0 0;
+  animation:hero-cinematic-lighting 12s ease-in-out infinite alternate;
+  will-change:background-position,opacity
+}
+@keyframes hero-cinematic-lighting{
+  0%{background-position:-20% 8%,0 0,0 0;opacity:.91}
+  52%{background-position:12% -5%,0 0,0 0;opacity:1}
+  100%{background-position:35% 10%,0 0,0 0;opacity:.94}
+}
+.intro h1{
+  position:relative;
+  top:5vh
+}
+@media(max-width:900px){.intro h1{top:3.5vh}}
+@media(prefers-reduced-motion:reduce){.hero-picture-holder:after{animation:none}}
