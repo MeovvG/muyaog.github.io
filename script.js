@@ -71,6 +71,7 @@ if(hero){
     hero.style.setProperty('--title-shift-first',`${-eased*118}px`);
     hero.style.setProperty('--title-shift-second',`${-eased*154}px`);
     hero.style.setProperty('--title-opacity',String(Math.max(0,1-progress*1.32)));
+    hero.style.setProperty('--title-effect-opacity',String(Math.max(0,.72-progress*1.7)));
     hero.style.setProperty('--hero-meta-opacity',String(Math.max(0,1-progress*1.8)));
     hero.style.setProperty('--scroll-cue-opacity',String(Math.max(0,.78-progress*2.4)));
     heroTicking=false;
