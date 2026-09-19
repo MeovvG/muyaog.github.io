@@ -1,10 +1,12 @@
-function flipMarkup(id,label,compact=false,imageSrc='',alt=''){
-  const copy=compact?'A short description of the place, moment, and feeling behind this photograph.':'A short description of where this was taken, what caught your attention, and why the frame matters.';
+function flipMarkup(id,label,compact=false,imageSrc='',alt='',description='',meta='',backColor=''){
+  const copy=description || (compact?'A short description of the place, moment, and feeling behind this photograph.':'A short description of where this was taken, what caught your attention, and why the frame matters.');
   const number=String(id).replace(/\D/g,'').slice(-2).padStart(2,'0');
   const front=imageSrc
     ? `<div class="flip-face flip-front has-photo"><img src="${imageSrc}" alt="${alt || label}" loading="lazy"><span class="photo-number">${number}</span></div>`
     : `<div class="flip-face flip-front"><span class="placeholder-mark"><span>Image placeholder</span><span>${number}</span></span></div>`;
-  return `<div class="flip-inner">${front}<div class="flip-face flip-back"><strong>${label}</strong><p>${copy}</p><span class="edit-hint">Click anywhere to return</span></div></div>`;
+  const style=backColor?` style="--photo-back:${backColor}"`:'';
+  const footer=meta?`<span class="photo-meta">${meta}</span>`:'<span class="edit-hint">Click anywhere to return</span>';
+  return `<div class="flip-inner">${front}<div class="flip-face flip-back photo-back"${style}><strong>${label}</strong><p>${copy}</p>${footer}</div></div>`;
 }
 
 function activateFlips(root=document){
@@ -16,14 +18,14 @@ function activateFlips(root=document){
 const featureGrid=document.querySelector('#feature-grid');
 if(featureGrid){
   const selectedPhotos=[
-    {file:'selected-02.jpg',shape:'portrait',title:'A moment of warmth',alt:'A smiling Buddhist nun in deep red robes and hat'},
-    {file:'selected-03.jpg',shape:'portrait',title:'Faith, framed',alt:'An ornate Tibetan temple seen through a sculptural opening'},
-    {file:'selected-01.jpg',shape:'landscape',title:'At altitude',alt:'A snow-covered mountain beneath dramatic clouds'},
-    {file:'selected-06.jpg',shape:'portrait',title:'Keeping tradition',alt:'An artist painting a vivid Buddhist figure on an ochre wall'},
-    {file:'selected-05.jpg',shape:'landscape',title:'A quiet witness',alt:'A black bird beside a puddle reflecting the sky'},
-    {file:'selected-07.jpg',shape:'portrait',title:'Island geometry',alt:'Sunlit modern architecture framed by tropical greenery'},
-    {file:'selected-04.jpg',shape:'landscape',title:'Evening by the water',alt:'People beside the water under a bridge in warm evening light'},
-    {file:'selected-08.jpg',shape:'landscape',title:'The long view',alt:'Hikers crossing snow beneath a bright mountain range'}
+    {file:'selected-02.jpg',shape:'portrait',title:'A moment of warmth',alt:'A smiling Buddhist nun in deep red robes and hat',description:'A quick smile softens the formality of deep red robes—an intimate moment held between ritual and everyday life.',meta:'2026 · Tibet',color:'#6c3b41'},
+    {file:'selected-03.jpg',shape:'portrait',title:'Faith, framed',alt:'An ornate temple seen through a sculptural opening',description:'The opening turns architecture into an apparition, revealing color and ornament through a narrow, unexpected frame.',meta:'2026 · Beijing',color:'#414e5c'},
+    {file:'selected-01.jpg',shape:'landscape',title:'At altitude',alt:'A snow-covered mountain beneath dramatic clouds',description:'Cloud and shadow move across the snow, making the mountain feel less like a backdrop than a living presence.',meta:'2026 · Tibet',color:'#46515f'},
+    {file:'selected-06.jpg',shape:'portrait',title:'Keeping tradition',alt:'An artist painting a vivid Buddhist figure on an ochre wall',description:'A careful hand renews a sacred image, joining contemporary labor to a visual tradition carried across generations.',meta:'2026 · Tibet',color:'#9c7e46'},
+    {file:'selected-05.jpg',shape:'landscape',title:'A quiet witness',alt:'A black bird beside a puddle reflecting the sky',description:'A crow pauses beside a small pool of reflected sky, turning an ordinary patch of pavement into a quiet double world.',meta:'2026 · Seattle',color:'#6b7278'},
+    {file:'selected-07.jpg',shape:'portrait',title:'Island geometry',alt:'Sunlit modern architecture framed by tropical greenery',description:'Hard concrete lines meet bright leaves and open water, balancing the built edge of the island with its tropical light.',meta:'2026 · Hawaii',color:'#595b43'},
+    {file:'selected-04.jpg',shape:'landscape',title:'Evening by the water',alt:'People beside the water under a bridge in warm evening light',description:'The last light settles over the shoreline as small figures linger beneath the repeating span of the bridge.',meta:'2026 · Seattle',color:'#817961'},
+    {file:'selected-08.jpg',shape:'landscape',title:'The long view',alt:'Hikers crossing snow beneath a bright mountain range',description:'Tiny hikers move across the snowfield, giving scale to a landscape that seems to stretch far beyond them.',meta:'2026 · Washington, USA',color:'#6d879b'}
   ];
   selectedPhotos.forEach((photo,index)=>{
     const i=index+1;
@@ -31,7 +33,7 @@ if(featureGrid){
     card.className=`flip-card ${photo.shape} reveal`;
     card.style.transitionDelay=`${(i%4)*80}ms`;
     card.setAttribute('aria-label',`Selected photograph ${i}; click to flip`);
-    card.innerHTML=flipMarkup(`selected-${i}`,photo.title,false,`./assets/selected/${photo.file}`,photo.alt);
+    card.innerHTML=flipMarkup(`selected-${i}`,photo.title,false,`./assets/selected/${photo.file}`,photo.alt,photo.description,photo.meta,photo.color);
     featureGrid.appendChild(card);
   });
   activateFlips(featureGrid);
