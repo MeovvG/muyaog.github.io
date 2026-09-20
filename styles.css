@@ -389,3 +389,20 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 .feature-grid .landscape .flip-front img{object-fit:contain}
 @media(max-width:1100px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.feature-grid{grid-template-columns:1fr;gap:16px}.feature-grid .flip-card:nth-child(n){height:360px}.feature-grid .landscape{height:280px!important}}
+
+/* Two color-sequenced rows with independently animated card faces. */
+.feature-grid{display:flex;flex-direction:column;gap:24px}
+.photo-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;width:100%}
+.feature-grid .portrait-row .flip-card{height:auto;aspect-ratio:3/4;min-height:350px}
+.feature-grid .landscape-row .flip-card{height:270px!important;min-height:270px}
+.feature-grid .flip-card{perspective:1400px}
+.feature-grid .flip-face{opacity:1;visibility:visible;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .8s cubic-bezier(.22,.68,.18,1);will-change:transform}
+.feature-grid .flip-front{transform:rotateY(0deg);pointer-events:auto}
+.feature-grid .flip-back{transform:rotateY(-180deg);pointer-events:none}
+.feature-grid .flipped .flip-front{opacity:1;visibility:visible;transform:rotateY(180deg);pointer-events:none}
+.feature-grid .flipped .flip-back{opacity:1;visibility:visible;transform:rotateY(0deg);pointer-events:auto}
+.feature-grid .landscape-row .photo-back{padding:20px;gap:12px}
+.feature-grid .landscape-row .photo-back strong{font-size:25px}
+.feature-grid .landscape-row .photo-back p{font-size:14px;line-height:1.4}
+@media(max-width:1100px){.photo-row{grid-template-columns:repeat(4, minmax(260px,1fr));overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity}.photo-row .flip-card{scroll-snap-align:start}}
+@media(prefers-reduced-motion:reduce){.feature-grid .flip-face{transition:none}}
