@@ -27,21 +27,18 @@ if(featureGrid){
     {file:'selected-04.jpg',shape:'landscape',title:'Evening by the water',alt:'People beside the water under a bridge in warm evening light',description:'The last light settles over the shoreline as small figures linger beneath the repeating span of the bridge.',meta:'2026 · Seattle',color:'#817961'},
     {file:'selected-08.jpg',shape:'landscape',title:'The long view',alt:'Hikers crossing snow beneath a bright mountain range',description:'Tiny hikers move across the snowfield, giving scale to a landscape that seems to stretch far beyond them.',meta:'2026 · Washington, USA',color:'#6d879b'}
   ];
-  const sequence=['selected-02.jpg','selected-06.jpg','selected-07.jpg','selected-03.jpg','selected-01.jpg','selected-05.jpg','selected-04.jpg','selected-08.jpg'];
+  const sequence=['selected-01.jpg','selected-02.jpg','selected-04.jpg','selected-07.jpg','selected-05.jpg','selected-06.jpg','selected-08.jpg','selected-03.jpg'];
   selectedPhotos.sort((a,b)=>sequence.indexOf(a.file)-sequence.indexOf(b.file));
-  const portraitRow=document.createElement('div');
-  portraitRow.className='photo-row portrait-row';
-  const landscapeRow=document.createElement('div');
-  landscapeRow.className='photo-row landscape-row';
-  featureGrid.append(portraitRow,landscapeRow);
+  let pair;
   selectedPhotos.forEach((photo,index)=>{
+    if(index%2===0){pair=document.createElement('div');pair.className='photo-pair';featureGrid.append(pair);}
     const i=index+1;
     const card=document.createElement('article');
     card.className=`flip-card ${photo.shape} reveal`;
     card.style.transitionDelay=`${(i%4)*80}ms`;
     card.setAttribute('aria-label',`Selected photograph ${i}; click to flip`);
     card.innerHTML=flipMarkup(`selected-${i}`,photo.title,false,`./assets/selected/${photo.file}`,photo.alt,photo.description,photo.meta,photo.color);
-    (photo.shape==='portrait'?portraitRow:landscapeRow).appendChild(card);
+    pair.appendChild(card);
   });
   activateFlips(featureGrid);
 }
