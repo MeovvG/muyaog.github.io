@@ -55,7 +55,7 @@ document.querySelectorAll('.category-row').forEach((row,index)=>{
 
 document.querySelectorAll('.hex,.section-heading,.collection-back').forEach((el,index)=>{el.classList.add('reveal');el.style.transitionDelay=`${(index%4)*90}ms`});
 
-const places={hawaii:['Hawaii','Light, water, and island rhythm.'],tibet:['Tibet','Ritual, color, and life at altitude.'],beijing:['Beijing','Old geometry in a changing city.'],seattle:['Seattle','Rain, distance, and Northwest quiet.']};
+const places={hawaii:['Hawaii','Light, water, and island rhythm.'],tibet:['Tibet','Ritual, color, and life at altitude.'],beijing:['Beijing','Old geometry in a changing city.'],seattle:['Washington','Rain, distance, and Northwest quiet.']};
 const gallery=document.querySelector('#collection-gallery');
 if(gallery){
   const slug=new URLSearchParams(location.search).get('place')||'tibet';
