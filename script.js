@@ -59,6 +59,45 @@ const places={hawaii:['Hawaii','Light, water, and island rhythm.'],tibet:['Tibet
 const gallery=document.querySelector('#collection-gallery');
 if(gallery){
   const slug=new URLSearchParams(location.search).get('place')||'tibet';
+
+
+if(new URLSearchParams(location.search).get('place')==='seattle'){
+  requestAnimationFrame(()=>{
+  document.body.classList.add('tibet-masonry');
+  const seattlePhotos=[
+    ['B0003664-2.jpg','A pedestrian passing parked cars on a tree-lined Seattle street',2048,1536],
+    ['B0003718(3).jpg','Mount Rainier rising beneath drifting summer clouds',1535,2048],
+    ['B0002747.jpg','A crow beside a puddle reflecting the sky',2048,1365],
+    ['B0003703(1).jpg','Mount Rainier beneath dark dramatic clouds',2048,1535],
+    ['B0002731.jpg','A brick alley and concrete overpass in Seattle',1535,2048],
+    ['B0003714(1).jpg','Hikers crossing snow toward a bright mountain range',2048,1536],
+    ['B0003669.jpg','A quiet house hidden behind deep green foliage',2048,1535],
+    ['B0003717.jpg','An alpine waterfall among evergreen trees',1535,2048],
+    ['B0003668-2.jpg','A red corner building behind a Seattle stop sign',2048,1535],
+    ['B0003700.jpg','A small marmot standing on a rocky slope',2048,1536],
+    ['B0003720.jpg','Late sunlight on a weathered wall and window',1536,2048],
+    ['B0003670.jpg','A stop sign framed by twisting trunks and green leaves',2047,1534],
+    ['B0002806.jpg','Abstract ribbons of colorful city lights at night',2048,1536],
+    ['B0003698.jpg','A marmot resting among stones and alpine plants',2048,1536],
+    ['B0003722.jpg','Warm evening light through trees beside the water',2048,1536],
+    ['B0003729.jpg','A resting goose on vivid green grass',2048,1535]
+  ];
+  const seattleGallery=document.querySelector('#collection-gallery');
+  seattleGallery.replaceChildren();
+  seattlePhotos.forEach(([file,alt,width,height])=>{
+    const figure=document.createElement('figure');
+    const img=document.createElement('img');
+    img.src='./assets/seattle/'+file;
+    img.width=width;
+    img.height=height;
+    img.alt=alt;
+    img.loading='lazy';
+    img.decoding='async';
+    figure.append(img);
+    seattleGallery.append(figure);
+  });
+  });
+}
   const [name,description]=places[slug]||places.tibet;
   document.title=`${name} — Aria Guo`;
   document.querySelector('#place-title').textContent=name;
