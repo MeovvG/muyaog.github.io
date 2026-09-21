@@ -417,3 +417,18 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 .feature-grid .photo-pair .photo-back{padding:clamp(20px,3vw,44px)}
 .feature-grid .photo-pair .photo-back strong{font-size:clamp(28px,3vw,48px)}
 @media(max-width:760px){.photo-pair{grid-template-columns:1fr;gap:24px}.feature-grid .photo-pair .portrait{width:75%;justify-self:end}.feature-grid .photo-pair .flip-card{min-height:300px}}
+
+
+/* Larger selected-photo story typography */
+.feature-grid .photo-pair .photo-back strong{
+  font-size:clamp(32px,3.2vw,52px);
+  line-height:1
+}
+.feature-grid .photo-pair .photo-back p{
+  max-width:38rem;
+  font:clamp(1rem,1.3vw,1.2rem)/1.5 var(--sans)
+}
+.feature-grid .photo-pair .photo-meta{
+  font-size:clamp(.68rem,.85vw,.76rem);
+  line-height:1.35
+}
