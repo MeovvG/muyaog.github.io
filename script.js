@@ -65,9 +65,11 @@ if(new URLSearchParams(location.search).get('place')==='seattle'){
   requestAnimationFrame(()=>{
   document.body.classList.add('tibet-masonry');
   const seattlePhotos=[
+    ['B0003433-4(1).webp','Seattle skyline and Space Needle reflected across calm blue water',2047,1544],
     ['B0003664-2.jpg','A pedestrian passing parked cars on a tree-lined Seattle street',2048,1536],
     ['B0003718(3).jpg','Mount Rainier rising beneath drifting summer clouds',1535,2048],
     ['B0002747.jpg','A crow beside a puddle reflecting the sky',2048,1365],
+    ['B0003589.webp','White cherry blossoms against a clear blue Seattle sky',2048,1535],
     ['B0003703(1).jpg','Mount Rainier beneath dark dramatic clouds',2048,1535],
     ['B0002731.jpg','A brick alley and concrete overpass in Seattle',1535,2048],
     ['B0003714(1).jpg','Hikers crossing snow toward a bright mountain range',2048,1536],
@@ -80,6 +82,7 @@ if(new URLSearchParams(location.search).get('place')==='seattle'){
     ['B0002806.jpg','Abstract ribbons of colorful city lights at night',2048,1536],
     ['B0003698.jpg','A marmot resting among stones and alpine plants',2048,1536],
     ['B0003722.jpg','Warm evening light through trees beside the water',2048,1536],
+    ['B0003604.webp','Mount Rainier beyond the tidal shoreline beneath a pale sky',1535,2048],
     ['B0003729.jpg','A resting goose on vivid green grass',2048,1535]
   ];
   const seattleGallery=document.querySelector('#collection-gallery');
@@ -96,6 +99,35 @@ if(new URLSearchParams(location.search).get('place')==='seattle'){
     figure.append(img);
     seattleGallery.append(figure);
   });
+  });
+}
+
+if(new URLSearchParams(location.search).get('place')==='hawaii'){
+  requestAnimationFrame(()=>{
+    document.body.classList.add('tibet-masonry');
+    const hawaiiPhotos=[
+      ['B0003545(2).webp','A surfer carrying a longboard across a sunny Waikiki street',2048,1536],
+      ['B0003554(2).webp','Colorful market stalls beneath tropical greenery',1535,2048],
+      ['B0003569(1).webp','Footprints along a sunlit shoreline',2048,1535],
+      ['B0003558(2).webp','A restaurant worker preparing food in a black-and-white kitchen',1535,2048],
+      ['B0003549 2(2).webp','Beachgoers beneath umbrellas beside the blue ocean',1536,2048],
+      ['B0003560(1).webp','An evening crowd ordering food at a warm-lit counter',2048,1536],
+      ['B0003563(2).webp','A beach pavilion framed by trees and blue water',1535,2048]
+    ];
+    const hawaiiGallery=document.querySelector('#collection-gallery');
+    hawaiiGallery.replaceChildren();
+    hawaiiPhotos.forEach(([file,alt,width,height])=>{
+      const figure=document.createElement('figure');
+      const img=document.createElement('img');
+      img.src='./assets/hawaii/'+file;
+      img.width=width;
+      img.height=height;
+      img.alt=alt;
+      img.loading='lazy';
+      img.decoding='async';
+      figure.append(img);
+      hawaiiGallery.append(figure);
+    });
   });
 }
   const [name,description]=places[slug]||places.tibet;
