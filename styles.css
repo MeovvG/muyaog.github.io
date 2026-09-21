@@ -409,10 +409,10 @@ body.ready .intro>.hero-picture-holder{animation:none;opacity:1;transform:none}
 
 /* Large landscape–portrait pairs, matching the supplied reference. */
 .feature-grid{gap:clamp(40px,6vw,90px)}
-.photo-pair{display:grid;grid-template-columns:1.8fr 1fr;gap:clamp(28px,9vw,150px);align-items:start}
+.photo-pair{width:100%;display:grid;grid-template-columns:1.8fr 1fr;gap:clamp(28px,9vw,150px);align-items:start}
 .feature-grid .photo-pair .flip-card:nth-child(n){height:auto!important;min-height:0;width:100%}
-.feature-grid .photo-pair .landscape{aspect-ratio:4/3}
-.feature-grid .photo-pair .portrait{aspect-ratio:3/4}
+.feature-grid .photo-pair .flip-card.landscape:nth-child(n){aspect-ratio:4/3}
+.feature-grid .photo-pair .flip-card.portrait:nth-child(n){aspect-ratio:3/4}
 .feature-grid .photo-pair .flip-front img{object-fit:contain}
 .feature-grid .photo-pair .photo-back{padding:clamp(20px,3vw,44px)}
 .feature-grid .photo-pair .photo-back strong{font-size:clamp(28px,3vw,48px)}
